@@ -48,9 +48,8 @@ struct TrackList: Codable {
 
 // MARK: - Track
 struct Track: Codable {
-//    let trackID: Int
+    let commontrack_id: Int
     let track_name: String
-//    let hasLyrics, hasSubtitles, hasRichsync, numFavourite: Int
     let artist_name: String
 
 }

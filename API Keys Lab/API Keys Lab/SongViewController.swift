@@ -22,6 +22,24 @@ class SongViewController: UIViewController {
     }
     
     //MARK: -- Functions
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifer = segue.identifier else {fatalError("No identifier in segue")}
+        
+        switch segueIdentifer {
+        case "segueToDetail":
+            guard let destVC = segue.destination as? detailViewController else { fatalError("Unexpected segue VC") }
+            guard let selectedIndexPath = tableView.indexPathForSelectedRow else { fatalError("No row selected") }
+            let selectedTrack = songs[selectedIndexPath.row]
+            let selectedTrackURL = "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=\(selectedTrack.track_name)&apikey=de2f217c3287b542f88b9d9bc600a90f".replacingOccurrences(of: " ", with: "%20")
+        
+            destVC.currentTrackURL = selectedTrackURL
+            print(selectedTrackURL)
+        default:
+            fatalError("unexpected segue identifier")
+        }
+    }
+    
     private func configureDelegateDataSources() {
         tableView.dataSource = self
         searchBar.delegate = self
